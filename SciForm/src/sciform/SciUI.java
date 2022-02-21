@@ -16,7 +16,9 @@ import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.io.IOException;
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JTextArea;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 
@@ -32,10 +34,22 @@ public abstract class SciUI {
         ge.registerFont(font);
         c.setFont(font);
         c.setBackground(Color.decode("#01012b"));
-        c.setForeground(Color.decode("#ff124f"));
-        c.setBorder(BorderFactory.createCompoundBorder(new SciUI.RoundedBorder(), new EmptyBorder(new Insets(15, 25, 15, 25))));
+        c.setForeground(Color.decode("#ff160c"));
+        
+        if (c instanceof JTextArea) {
+            c.setBorder(null);
+        }
+        
+        else if (c instanceof JComboBox) {
+            c.setBorder(BorderFactory.createCompoundBorder(new SciUI.RoundedBorder(), new EmptyBorder(new Insets(12, 12, 12, 12))));
+        }
+        
+        else {
+            c.setBorder(BorderFactory.createCompoundBorder(new SciUI.RoundedBorder(), new EmptyBorder(new Insets(15, 25, 15, 25))));
+        }   
     }
     
+    // Creates rounded corners for the JComponents
     class RoundedBorder extends AbstractBorder {
         @Override
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {

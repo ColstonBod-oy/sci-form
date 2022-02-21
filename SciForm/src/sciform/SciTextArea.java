@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -16,21 +17,25 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author User
  */
-public class SciTextField extends SciUI {
+public class SciTextArea extends SciUI {
     
-    private JTextField c;
+    private JTextArea c;
+    private JScrollPane scrollPane;
     private boolean isActive;
     private Color statusColor;
-    
-    public SciTextField(JPanel root, JTextField c, String text, int x, int y, int width, int height) throws FontFormatException, IOException {
+
+    public SciTextArea(JPanel root, JTextArea c, String text, int x, int y, int width, int height) throws FontFormatException, IOException {
         super(c);
         this.c = c;
         isActive = false;
@@ -39,6 +44,11 @@ public class SciTextField extends SciUI {
         this.c.setCaretColor(Color.decode("#1afe49"));
         this.c.setText(text);
         this.c.setEditable(isActive);
+        scrollPane = new JScrollPane(c);
+        scrollPane.setBounds(x, y, width, height);
+        scrollPane.setBorder(null);
+        scrollPane.setBackground(Color.decode("#01012b"));
+        scrollPane.setViewportBorder(BorderFactory.createCompoundBorder(new SciTextArea.RoundedBorder(), new EmptyBorder(new Insets(15, 25, 15, 25))));
         
         this.c.addMouseListener(new MouseListener() {
             @Override
@@ -109,7 +119,7 @@ public class SciTextField extends SciUI {
 
     @Override
     public JComponent getComponent() {
-        return c;
+        return scrollPane;
     }
 
     @Override
@@ -117,8 +127,8 @@ public class SciTextField extends SciUI {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(statusColor);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.drawOval(c.getX() - 10, c.getY() + 16, 8, 8);
-        g2d.fillOval(c.getX() - 10, c.getY() + 16, 8, 8);
+        g2d.drawOval(scrollPane.getX() - 10, scrollPane.getY() + 16, 8, 8);
+        g2d.fillOval(scrollPane.getX() - 10, scrollPane.getY() + 16, 8, 8);
     }
     
 }

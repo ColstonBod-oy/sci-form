@@ -17,28 +17,34 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 /**
  *
  * @author User
  */
-public class SciTextField extends SciUI {
+public class SciPasswordField extends SciUI {
     
-    private JTextField c;
+    private JPasswordField c;
+    private JLabel text;
     private boolean isActive;
     private Color statusColor;
-    
-    public SciTextField(JPanel root, JTextField c, String text, int x, int y, int width, int height) throws FontFormatException, IOException {
+
+    public SciPasswordField(JPanel root, JPasswordField c, String text, int x, int y, int width, int height) throws FontFormatException, IOException {
         super(c);
         this.c = c;
         isActive = false;
         statusColor = Color.decode("#ff160c");
         this.c.setBounds(x, y, width, height);
         this.c.setCaretColor(Color.decode("#1afe49"));
-        this.c.setText(text);
         this.c.setEditable(isActive);
+        this.text = new JLabel(text);
+        this.text.setFont(c.getFont());
+        this.text.setForeground(statusColor);
+        this.text.setBounds(x + 26, y, width, height);
+        root.add(this.text);
         
         this.c.addMouseListener(new MouseListener() {
             @Override
@@ -46,7 +52,7 @@ public class SciTextField extends SciUI {
                 if (isActive == false) {
                     isActive = true;
                     statusColor = Color.decode("#1afe49");
-                    c.setText("");
+                    getText().setVisible(!isActive);
                     c.setEditable(isActive);
                     c.getCaret().setVisible(isActive);
                     c.setForeground(statusColor);
@@ -79,7 +85,7 @@ public class SciTextField extends SciUI {
                 if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE && c.getText().equals("")) {
                     isActive = false;
                     statusColor = Color.decode("#ff160c");
-                    c.setText(text);
+                    getText().setVisible(!isActive);
                     c.setEditable(isActive);
                     c.getCaret().setVisible(isActive);
                     c.setForeground(statusColor);
@@ -97,7 +103,7 @@ public class SciTextField extends SciUI {
                 if (c.getText().equals("")) {
                     isActive = false;
                     statusColor = Color.decode("#ff160c");
-                    c.setText(text);
+                    getText().setVisible(!isActive);
                     c.setEditable(isActive);
                     c.getCaret().setVisible(isActive);
                     c.setForeground(statusColor);
@@ -119,6 +125,10 @@ public class SciTextField extends SciUI {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.drawOval(c.getX() - 10, c.getY() + 16, 8, 8);
         g2d.fillOval(c.getX() - 10, c.getY() + 16, 8, 8);
+    }
+    
+    private JLabel getText() {
+        return text;
     }
     
 }
