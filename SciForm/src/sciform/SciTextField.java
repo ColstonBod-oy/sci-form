@@ -94,7 +94,7 @@ public class SciTextField extends SciUI {
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (c.getText().equals("")) {
+                if (c.getText().trim().equals("")) {
                     isActive = false;
                     statusColor = Color.decode("#ff160c");
                     c.setText(text);

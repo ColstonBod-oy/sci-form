@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -50,27 +51,30 @@ public class SciForm {
 }
 
 class MainPanel extends JPanel {
-    ImageLabel emblem = new ImageLabel("emblem.png", 190, 20, 100, 100);
+    ImageLabel emblem = new ImageLabel("emblem.png", 190, 38, 100, 100);
     JTextField textField1 = new JTextField();
-    SciTextField name = new SciTextField(this, textField1, "name", 115, 120, 250, 40);
+    SciTextField name = new SciTextField(this, textField1, "name", 115, 144, 250, 40);
     JComboBox comboBox1 = new JComboBox(new String[] {"male", "female", "others"});
-    SciComboBox gender = new SciComboBox(this, comboBox1, "gender", 115, 160, 107, 40);
+    SciComboBox gender = new SciComboBox(this, comboBox1, "gender", 115, 184, 107, 40);
     JTextField textField2 = new JTextField();
-    SciTextField religion = new SciTextField(this, textField2, "religion", 233, 160, 132, 40);
+    SciTextField religion = new SciTextField(this, textField2, "religion", 233, 184, 132, 40);
     JTextField textField3 = new JTextField();
-    SciTextField nationality = new SciTextField(this, textField3, "nationality", 115, 200, 250, 40);
+    SciTextField nationality = new SciTextField(this, textField3, "nationality", 115, 224, 250, 40);
     JTextField textField4 = new JTextField();
-    SciTextField username = new SciTextField(this, textField4, "username", 115, 260, 250, 40);
+    SciTextField username = new SciTextField(this, textField4, "username", 115, 284, 250, 40);
     JTextField textField5 = new JTextField();
-    SciTextField emailAddress = new SciTextField(this, textField5, "email address", 115, 300, 250, 40);
+    SciTextField emailAddress = new SciTextField(this, textField5, "email address", 115, 324, 250, 40);
     JPasswordField passwordField1 = new JPasswordField();
-    SciPasswordField password = new SciPasswordField(this, passwordField1, "password", 115, 340, 250, 40);
+    SciPasswordField password = new SciPasswordField(this, passwordField1, "password", 115, 364, 250, 40);
     JPasswordField passwordField2 = new JPasswordField();
-    SciPasswordField confirmPassword = new SciPasswordField(this, passwordField2, "confirm password", 115, 380, 250, 40);
+    SciPasswordField confirmPassword = new SciPasswordField(this, passwordField2, "confirm password", 115, 404, 250, 40);
     JTextArea textArea1 = new JTextArea();
-    SciTextArea subjectComment = new SciTextArea(this, textArea1, "Tell me something\nabout the subject?", 115, 420, 250, 200);
+    SciTextArea subjectComment = new SciTextArea(this, textArea1, "Tell me something\nabout the subject?", 115, 444, 250, 200);
+    JButton button1 = new JButton();
+    SciButton register = new SciButton(button1, "register", 145, 662, 190, 50);
     
     public MainPanel() throws FontFormatException, IOException {
+        add(register.getComponent());
         add(subjectComment.getComponent());
         add(confirmPassword.getComponent());
         add(password.getComponent());
