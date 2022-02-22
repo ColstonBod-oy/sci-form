@@ -125,4 +125,8 @@ public class SciTextField extends SciUI {
         return statusColor;
     }
     
+    public String getText() {
+        return c.getText().toLowerCase();
+    }
+    
 }

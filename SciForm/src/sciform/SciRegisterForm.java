@@ -11,6 +11,8 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -25,6 +27,16 @@ import javax.swing.JTextField;
  * @author User
  */
 public class SciRegisterForm extends JFrame {
+    
+    private SciTextField name;
+    private SciComboBox gender;
+    private SciTextField religion;
+    private SciTextField nationality;
+    private SciTextField username;
+    private SciTextField emailAddress;
+    private SciPasswordField password;
+    private SciPasswordField confirmPassword;
+    private SciTextArea subjectComment;
     
     public SciRegisterForm() throws FontFormatException, IOException {
         RegisterPanel registerPanel = new RegisterPanel(this);
@@ -44,40 +56,49 @@ public class SciRegisterForm extends JFrame {
     }
     
     class RegisterPanel extends JPanel {
-        ImageLabel emblem = new ImageLabel("emblem.png", 190, 38, 100, 100);
-        JTextField textField1 = new JTextField();
-        SciTextField name = new SciTextField(this, textField1, "name", 115, 144, 250, 40);
-        JComboBox comboBox1 = new JComboBox(new String[]{"male", "female", "others"});
-        SciComboBox gender = new SciComboBox(this, comboBox1, "gender", 115, 184, 107, 40);
-        JTextField textField2 = new JTextField();
-        SciTextField religion = new SciTextField(this, textField2, "religion", 233, 184, 132, 40);
-        JTextField textField3 = new JTextField();
-        SciTextField nationality = new SciTextField(this, textField3, "nationality", 115, 224, 250, 40);
-        JTextField textField4 = new JTextField();
-        SciTextField username = new SciTextField(this, textField4, "username", 115, 284, 250, 40);
-        JTextField textField5 = new JTextField();
-        SciTextField emailAddress = new SciTextField(this, textField5, "email address", 115, 324, 250, 40);
-        JPasswordField passwordField1 = new JPasswordField();
-        SciPasswordField password = new SciPasswordField(this, passwordField1, "password", 115, 364, 250, 40);
-        JPasswordField passwordField2 = new JPasswordField();
-        SciPasswordField confirmPassword = new SciPasswordField(this, passwordField2, "confirm password", 115, 404, 250, 40);
-        JTextArea textArea1 = new JTextArea();
-        SciTextArea subjectComment = new SciTextArea(this, textArea1, "Tell me something\nabout the subject?", 115, 444, 250, 200);
-        JButton button1 = new JButton();
-        SciButton register = new SciButton(button1, "register", 145, 662, 190, 50);
-    
         public RegisterPanel(SciRegisterForm registerForm) throws FontFormatException, IOException {
-            add(register.getComponent());
-            add(subjectComment.getComponent());
-            add(confirmPassword.getComponent());
-            add(password.getComponent());
-            add(emailAddress.getComponent());
-            add(username.getComponent());
-            add(nationality.getComponent());
-            add(religion.getComponent());
-            add(gender.getComponent());
-            add(name.getComponent());
+            ImageLabel emblem = new ImageLabel("emblem.png", 190, 38, 100, 100);
+            JButton button1 = new JButton();
+            SciButton register = new SciButton(button1, "register", 145, 662, 190, 50);
+        
+            JTextField textField1 = new JTextField();
+            name = new SciTextField(this, textField1, "name", 115, 144, 250, 40);
+        
+            JComboBox comboBox1 = new JComboBox(new String[]{"male", "female", "others"});
+            gender = new SciComboBox(this, comboBox1, "gender", 115, 184, 107, 40);
+        
+            JTextField textField2 = new JTextField();
+            religion = new SciTextField(this, textField2, "religion", 233, 184, 132, 40);
+        
+            JTextField textField3 = new JTextField();
+            nationality = new SciTextField(this, textField3, "nationality", 115, 224, 250, 40);
+        
+            JTextField textField4 = new JTextField();
+            username = new SciTextField(this, textField4, "username", 115, 284, 250, 40);
+        
+            JTextField textField5 = new JTextField();
+            emailAddress = new SciTextField(this, textField5, "email address", 115, 324, 250, 40);
+        
+            JPasswordField passwordField1 = new JPasswordField();
+            password = new SciPasswordField(this, passwordField1, "password", 115, 364, 250, 40);
+        
+            JPasswordField passwordField2 = new JPasswordField();
+            confirmPassword = new SciPasswordField(this, passwordField2, "confirm password", 115, 404, 250, 40);
+        
+            JTextArea textArea1 = new JTextArea();
+            subjectComment = new SciTextArea(this, textArea1, "Tell me something\nabout the subject?", 115, 444, 250, 200);
+            
             add(emblem);
+            add(register.getComponent());
+            add(name.getComponent());
+            add(gender.getComponent());
+            add(religion.getComponent());
+            add(nationality.getComponent());
+            add(username.getComponent());
+            add(emailAddress.getComponent());
+            add(password.getComponent());
+            add(confirmPassword.getComponent());
+            add(subjectComment.getComponent());
             setLayout(null);
             setBackground(Color.decode("#d1f7ff"));
         
@@ -97,12 +118,23 @@ public class SciRegisterForm extends JFrame {
                         JOptionPane.showMessageDialog(emblem, "Empty fields detected!", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 
-                    else if (!(new String(password.getPassword()).equals(new String(confirmPassword.getPassword())))) {
+                    else if (!password.getPassword().equals(confirmPassword.getPassword())) {
                         JOptionPane.showMessageDialog(emblem, "Password fields doesn't match!", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 
-                    else if (password.getPassword().length < 8) {
+                    else if (password.getPassword().length() < 8) {
                         JOptionPane.showMessageDialog(emblem, "Password length is too short!", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    else {
+                        try {
+                            new SciLoginForm(username.getText(), password.getPassword()).setVisible(true);
+                        } catch (FontFormatException ex) {
+                            Logger.getLogger(SciRegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(SciRegisterForm.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        registerForm.dispose();
                     }
                 }
 
