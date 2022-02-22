@@ -29,7 +29,7 @@ public class SciLoginForm extends JFrame {
     
     public SciLoginForm(String regUsername, String regPassword) throws FontFormatException, IOException {
         LoginPanel loginPanel = new LoginPanel(this, regUsername, regPassword);
-        setTitle("Sci-Register");
+        setTitle("Sci-Login");
         setSize(480, 480);
         setResizable(false);
         setLocationRelativeTo(null);
