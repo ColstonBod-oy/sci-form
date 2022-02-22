@@ -85,4 +85,8 @@ public class SciComboBox extends SciUI {
         return text;
     }
     
+    public Color getStatusColor() {
+        return statusColor;
+    }
+    
 }

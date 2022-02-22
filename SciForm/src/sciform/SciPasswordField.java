@@ -133,4 +133,12 @@ public class SciPasswordField extends SciUI {
         return text;
     }
     
+    public Color getStatusColor() {
+        return statusColor;
+    }
+    
+    public char[] getPassword() {
+        return c.getPassword();
+    }
+    
 }

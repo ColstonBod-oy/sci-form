@@ -121,4 +121,8 @@ public class SciTextField extends SciUI {
         g2d.fillOval(c.getX() - 10, c.getY() + 16, 8, 8);
     }
     
+    public Color getStatusColor() {
+        return statusColor;
+    }
+    
 }

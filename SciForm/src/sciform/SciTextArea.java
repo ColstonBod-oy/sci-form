@@ -131,4 +131,8 @@ public class SciTextArea extends SciUI {
         g2d.fillOval(scrollPane.getX() - 10, scrollPane.getY() + 16, 8, 8);
     }
     
+    public Color getStatusColor() {
+        return statusColor;
+    }
+    
 }
